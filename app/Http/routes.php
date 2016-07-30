@@ -18,3 +18,14 @@ Route::get('/', function () {
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('/grade/{level}', 'DataSetController@grades');
+Route::post('/grade/{level}', 'DataSetController@setGrades');
+Route::post('/grade/edit/{grade}', 'DataSetController@editGrades');
+Route::get('/ncae', 'DataSetController@ncae');
+Route::post('/ncae', 'DataSetController@setNcae');
+Route::get('/preference', 'DataSetController@preference');
+Route::post('/preference', 'DataSetController@setPreference');
+Route::get('/awards', 'DataSetController@awards');
+Route::post('/awards', 'DataSetController@addAward');
+Route::get('/compute', 'HomeController@compute');
