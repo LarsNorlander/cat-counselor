@@ -8,6 +8,18 @@
     }
 </style>
 
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-2">
+        <img src="/img/cat.svg">
+    </div>
+    <div class="col-md-6" style="border-left: 3px solid #ffa200; text-align: justify">
+        <p>Huzza! I'm IntelliCat! But not so <i>"Intelli"</i> just yet. See, my creator is yet to give me my reactions.
+        It's a few conditions away but he's gonna make sure I say something useful!... Hopefully.</p>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
 <h3>Ranking</h3>
 <hr/>
 <div class="row">
@@ -35,7 +47,7 @@
     </div>
 </div>
 
-<h3>Student Strengths</h3>
+<h3>Your Strengths</h3>
 <hr/>
 <div class="row">
     <div class="col-md-4">
