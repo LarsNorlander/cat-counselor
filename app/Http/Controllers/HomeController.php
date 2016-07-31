@@ -45,6 +45,7 @@ class HomeController extends Controller {
                                 ->get()->first()
         ;
 
+        if(count($grades) == 0 or count($preference) == 0) return view('lackData');
 
         $averageGrade = json_decode("{
       \"Math\": 0,
@@ -110,7 +111,27 @@ class HomeController extends Controller {
             $awardMap[ $award->subject->subject_title ] += 1;
         }
 
-        $requestBodyRaw = [ "grades" => $averageGrade , "ncae" => $ncaeMap , "awards" => $awardMap , "preference" => $preferenceArray ];
+        foreach ($ncaeMap as $key => $value){
+            if($value == 0){
+                unset($ncaeMap[$key]);
+            }
+        }
+
+        foreach ($awardMap as $key => $value){
+            if($value == 0){
+                unset($awardMap[$key]);
+            }
+        }
+
+        $requestBodyRaw = [ "grades" => $averageGrade, "preference" => $preferenceArray ];
+
+        if(count($ncaeMap) != 0){
+            $requestBodyRaw["ncae"] = $ncaeMap;
+        }
+
+        if (count($awardMap) != 0){
+            $requestBodyRaw["awards"] = $awardMap;
+        }
 
         $options  = array (
             'http' =>
@@ -122,7 +143,7 @@ class HomeController extends Controller {
                 ),
         );
         $context  = stream_context_create( $options );
-        $response = file_get_contents('http://localhost:8080/', false, $context);
-        return view('results').with('results', $response);
+        $response = json_decode(file_get_contents('http://localhost:8080/', false, $context), true);
+        return view('results')->with('results', $response);
     }
 }

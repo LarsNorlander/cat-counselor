@@ -86,7 +86,7 @@
                                                class="form-control">
                                     </div>
                                     <br/>
-                                    <button class="btn btn-primary pull-right" style="width: 100%">Save Grades</button>
+                                    <button class="btn btn-warning pull-right" style="width: 100%">Save Grades</button>
                                 </div>
                             </div>
                         </form>

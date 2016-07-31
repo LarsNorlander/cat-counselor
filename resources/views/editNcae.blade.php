@@ -10,7 +10,7 @@
                         <h3>National Career Assessment Exam Results</h3>
                     </div>
                     <div class="panel-body">
-                        <form action="/ncae" method="POST">
+                        <form action="/ncae/edit/{{ $ncae->id }}" method="POST">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="row">
                                 <style>
@@ -25,41 +25,41 @@
                                 <div class="col-md-6">
                                     <div class="input-group">
                                         <span class="input-group-addon">Scientific Ability</span>
-                                        <input required name="scientific_ability" min="0" type="number" step="0.01"
+                                        <input required value="{{ $ncae->scientific_ability }}" name="scientific_ability" min="0" type="number" step="0.01"
                                                class="form-control">
                                     </div>
                                     <br/>
                                     <div class="input-group">
                                         <span class="input-group-addon">Reading Comprehension</span>
-                                        <input required name="reading_comprehension" min="0" type="number" step="0.01"
+                                        <input required value="{{ $ncae->reading_comprehension }}" name="reading_comprehension" min="0" type="number" step="0.01"
                                                class="form-control">
                                     </div>
                                     <br/>
 
                                     <div class="input-group">
                                         <span class="input-group-addon">Verbal Ability</span>
-                                        <input required name="verbal_ability" min="0" type="number" step="0.01"
+                                        <input required value="{{ $ncae->verbal_ability }}" name="verbal_ability" min="0" type="number" step="0.01"
                                                class="form-control">
                                     </div>
                                     <br/>
 
                                     <div class="input-group">
                                         <span class="input-group-addon">Mathematical Ability</span>
-                                        <input required name="mathematical_ability" min="0" type="number" step="0.01"
+                                        <input required value="{{ $ncae->mathematical_ability }}" name="mathematical_ability" min="0" type="number" step="0.01"
                                                class="form-control">
                                     </div>
                                     <br/>
 
                                     <div class="input-group">
                                         <span class="input-group-addon">Logical Reasoning Ability</span>
-                                        <input required name="logical_reasoning_ability" min="0" type="number" step="0.01"
+                                        <input required value="{{ $ncae->logical_reasoning_ability }}" name="logical_reasoning_ability" min="0" type="number" step="0.01"
                                                class="form-control">
                                     </div>
                                     <br/>
 
                                     <div class="input-group">
                                         <span class="input-group-addon">Clerical Ability</span>
-                                        <input required name="clerical_ability" min="0" type="number" step="0.01"
+                                        <input required value="{{ $ncae->clerical_ability }}" name="clerical_ability" min="0" type="number" step="0.01"
                                                class="form-control">
                                     </div>
                                     <br/>
@@ -68,35 +68,35 @@
                                 <div class="col-md-6">
                                     <div class="input-group">
                                         <span class="input-group-addon">Non Verbal Ability</span>
-                                        <input required name="non_verbal_ability" min="0" type="number" step="0.01"
+                                        <input required value="{{ $ncae->non_verbal_ability }}" name="non_verbal_ability" min="0" type="number" step="0.01"
                                                class="form-control">
                                     </div>
                                     <br/>
 
                                     <div class="input-group">
                                         <span class="input-group-addon">Visual Manipulative Skill</span>
-                                        <input required name="visual_manipulative_skill" min="0" type="number" step="0.01"
+                                        <input required value="{{ $ncae->visual_manipulative_skill }}" name="visual_manipulative_skill" min="0" type="number" step="0.01"
                                                class="form-control">
                                     </div>
                                     <br/>
 
                                     <div class="input-group">
                                         <span class="input-group-addon">HUMSS</span>
-                                        <input required name="humss" min="0" type="number" step="0.01"
+                                        <input required value="{{ $ncae->humss }}" name="humss" min="0" type="number" step="0.01"
                                                class="form-control">
                                     </div>
                                     <br/>
 
                                     <div class="input-group">
                                         <span class="input-group-addon">STEM</span>
-                                        <input required name="stem" min="0" type="number" step="0.01"
+                                        <input required value="{{ $ncae->stem }}" name="stem" min="0" type="number" step="0.01"
                                                class="form-control">
                                     </div>
                                     <br/>
 
                                     <div class="input-group">
                                         <span class="input-group-addon">ABM</span>
-                                        <input required name="abm" min="0" type="number" step="0.01"
+                                        <input required value="{{ $ncae->abm }}" name="abm" min="0" type="number" step="0.01"
                                                class="form-control">
                                     </div>
                                     <br/>

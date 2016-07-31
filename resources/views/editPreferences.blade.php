@@ -10,7 +10,7 @@
                         <h3>Academic Track Ranking</h3>
                     </div>
                     <div class="panel-body">
-                        <form action="/preference" method="POST">
+                        <form action="/preference/edit/{{ $preference['id'] }}" method="POST">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="row">
                                 <style>
@@ -30,13 +30,13 @@
                                 <div class="col-md-6">
                                     <div class="input-group">
                                         <span class="input-group-addon">STEM</span>
-                                        <input id="stem" required name="stem" min="1" max="4" type="number"
+                                        <input id="stem" value="{{ $preference['stem'] }}" required name="stem" min="1" max="4" type="number"
                                                class="form-control">
                                     </div>
                                     <br/>
                                     <div class="input-group">
                                         <span class="input-group-addon">HUMSS</span>
-                                        <input id="humss" required name="humss" min="1" max="4" type="number"
+                                        <input id="humss" value="{{ $preference['humss'] }}" required name="humss" min="1" max="4" type="number"
                                                class="form-control">
                                     </div>
                                     <br/>
@@ -44,14 +44,14 @@
                                 <div class="col-md-6">
                                     <div class="input-group">
                                         <span class="input-group-addon">ABM</span>
-                                        <input id="abm" required name="abm" min="1" max="4" type="number"
+                                        <input id="abm" value="{{ $preference['abm'] }}" required name="abm" min="1" max="4" type="number"
                                                class="form-control">
                                     </div>
                                     <br/>
 
                                     <div class="input-group">
                                         <span class="input-group-addon">GAS</span>
-                                        <input id="gas" required name="gas" min="1" max="4" type="number"
+                                        <input id="gas" value="{{ $preference['gas'] }}" required name="gas" min="1" max="4" type="number"
                                                class="form-control">
                                     </div>
                                     <br/>

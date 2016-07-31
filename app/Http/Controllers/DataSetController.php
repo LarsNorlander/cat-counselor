@@ -52,10 +52,7 @@ class DataSetController extends Controller
             return view('addNcae');
         }
 
-        return $ncae;
-
-//        return view('editGrade')->with('level', $level)
-//                                ->with('grade', $grade);
+        return view('editNcae')->with('ncae', $ncae);
     }
 
     public function setNcae(Request $request){
@@ -68,6 +65,15 @@ class DataSetController extends Controller
         return redirect('/home');
     }
 
+    public function editNcae(Request $request, Ncae $ncae){
+        $data = $request->all();
+        unset($data['_token']);
+        $ncae->fill($data);
+        $ncae->save();
+
+        return redirect('/home');
+    }
+
     public function preference(){
         $preference = Preference::where('owner_id', Auth::User()->id)->get()->first();
 
@@ -75,7 +81,15 @@ class DataSetController extends Controller
             return view('addPreference');
         }
 
-        return $preference;
+        $preferenceArray = array();
+
+        foreach(json_decode($preference->preference, true) as $key => $value){
+            $preferenceArray[$value] = $key + 1;
+        }
+
+        $preferenceArray['id'] = $preference->id;
+
+        return view('editPreferences')->with('preference',$preferenceArray);
     }
 
     public function setPreference(Request $request){
@@ -95,11 +109,32 @@ class DataSetController extends Controller
         return redirect("/home");
     }
 
+    public function editPreference(Request $request, Preference $preference){
+        $data = new \SplFixedArray(4);
+        $requestData = $request->all();
+        unset($requestData['_token']);
+        foreach($requestData as $key => $value){
+            $data[$value - 1] = $key;
+        }
+        $preferenceArrayString = array($data[0], $data[1], $data[2], $data[3]);
+
+        $preference->preference = json_encode($preferenceArrayString);
+        $preference->save();
+
+        return redirect("/home");
+    }
+
     public function awards(){
-        $awards = Award::where('owner_id', Auth::User()->id)->get();
+        $awards = Award::where('owner_id', Auth::User()->id)->with('subject')->orderBy('subject_id')->get();
         $subjects = Subject::all();
 
         return view('awards')->with('awards', $awards)->with('subjects', $subjects);
+    }
+
+    public function oneAward(Award $award){
+        $subjects = Subject::all();
+
+        return view('editAward')->with('award', $award)->with('subjects', $subjects);
     }
 
     public function addAward(Request $request){
@@ -109,5 +144,17 @@ class DataSetController extends Controller
         $award->owner_id = Auth::User()->id;
         $award->save();
         return back();
+    }
+
+    public function editAward(Request $request, Award $award){
+        $award->name = $request->title;
+        $award->subject_id = $request->subject_id;
+        $award->save();
+        return redirect('/awards');
+    }
+
+    public function deleteAward(Award $award){
+        $award->delete();
+        return redirect('/awards');
     }
 }

@@ -36,7 +36,7 @@
                                 </div>
                                 <hr/>
                                 <div class="col-md-12">
-                                    <button class="btn btn-primary pull-right" style="width: 100%">Add Award</button>
+                                    <button class="btn btn-warning pull-right" style="width: 100%">Add Award</button>
                                 </div>
                             </div>
                         </form>
@@ -51,8 +51,8 @@
                             <p class="list-group-item">You don't have any awards yet.</p>
                         @else
                             @foreach($awards as $award)
-                                <a href="#" class="list-group-item">
-                                    {{ $award->name }} <span class="pull-right">{{ $award->subject_id }}</span>
+                                <a href="/award/edit/{{$award->id}}" class="list-group-item">
+                                    {{ $award->name }} <span class="pull-right">{{ $award->subject->subject_title }}</span>
                                 </a>
                             @endforeach
                         @endif

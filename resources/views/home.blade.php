@@ -5,11 +5,10 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Dashboard</div>
+                    <div class="panel-heading">Results</div>
 
-                    <div class="panel-body">
-                        You don't have enough data. Add at least one set of grades and your preferences. Click
-                        the item below that you want to input data to.
+                    <div id="computation" class="panel-body">
+
                     </div>
                 </div>
 
@@ -37,4 +36,17 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+<script>
+    $(document).ready(function(){
+        $.ajax({
+            url: '/compute',
+            success: function(data){
+                $('#computation').html(data)
+            }
+        })
+    })
+</script>
 @endsection
