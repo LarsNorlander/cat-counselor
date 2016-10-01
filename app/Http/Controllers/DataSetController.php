@@ -20,9 +20,12 @@ class DataSetController extends Controller
         if (count($grade) == 0){
             return view('addGrade', compact('level', $level));
         }
+//
+//        return view('editGrade')
+//            ->with('level', $level)
+//            ->with('grade', $grade);
 
-        return view('editGrade')->with('level', $level)
-            ->with('grade', $grade);
+        return view('editGrade', ['level'=>$level, 'grade'=>$grade]);
     }
 
     public function setGrades(Request $request, $level){

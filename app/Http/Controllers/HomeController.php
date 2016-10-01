@@ -42,10 +42,13 @@ class HomeController extends Controller {
                        ->get()
         ;
         $preference = Preference::where('owner_id' , Auth::User()->id)
-                                ->get()->first()
+                                ->get()
+                                ->first()
         ;
 
-        if(count($grades) == 0 or count($preference) == 0) return view('lackData');
+        if (count($grades) == 0 or count($preference) == 0) {
+            return view('lackData');
+        }
 
         $averageGrade = json_decode("{
       \"Math\": 0,
@@ -111,39 +114,52 @@ class HomeController extends Controller {
             $awardMap[ $award->subject->subject_title ] += 1;
         }
 
-        foreach ($ncaeMap as $key => $value){
-            if($value == 0){
-                unset($ncaeMap[$key]);
+        foreach ($ncaeMap as $key => $value) {
+            if ($value == 0) {
+                unset( $ncaeMap[ $key ] );
             }
         }
 
-        foreach ($awardMap as $key => $value){
-            if($value == 0){
-                unset($awardMap[$key]);
+        foreach ($awardMap as $key => $value) {
+            if ($value == 0) {
+                unset( $awardMap[ $key ] );
             }
         }
 
-        $requestBodyRaw = [ "grades" => $averageGrade, "preference" => $preferenceArray ];
+        $requestBodyRaw = [ "grades" => $averageGrade , "preference" => $preferenceArray ];
 
-        if(count($ncaeMap) != 0){
-            $requestBodyRaw["ncae"] = $ncaeMap;
+        if (count($ncaeMap) != 0) {
+            $requestBodyRaw[ "ncae" ] = $ncaeMap;
         }
 
-        if (count($awardMap) != 0){
-            $requestBodyRaw["awards"] = $awardMap;
+        if (count($awardMap) != 0) {
+            $requestBodyRaw[ "awards" ] = $awardMap;
         }
 
-        $options  = array (
+        $options = [
             'http' =>
-                array (
-                    'ignore_errors' => true,
-                    'method' => 'POST',
-                    'header' => "Content-Type: application/json\r\n",
-                    'content' => json_encode($requestBodyRaw)
-                ),
-        );
-        $context  = stream_context_create( $options );
-        $response = json_decode(file_get_contents('http://localhost:8080/', false, $context), true);
-        return view('results')->with('results', $response);
+                [
+                    'ignore_errors' => true ,
+                    'method'        => 'POST' ,
+                    'header'        => "Content-Type: application/json\r\n" ,
+                    'content'       => json_encode($requestBodyRaw)
+                ] ,
+        ];
+        $context = stream_context_create($options);
+        $response = json_decode(file_get_contents('https://catranker.herokuapp.com/' , false , $context) , true);
+
+        if ($response[ 'preference' ][0] == current(array_keys($response[ 'ranking' ]))) {
+            $message = "Huzzah! Your first choice is the best track for you! You could go check the Individual Strand Statistics section
+        below to see what you might be able to improve. Remember, there's always room for improvement!";
+        } else {
+            $message = "Your first choice and best strand don't match. Check out the Individual Strand Statistics section below
+            to see what you could improve and what you missed. You could also see why another strand might fit you better since
+            the evaluation is based on your skill set.";
+        }
+
+        return view('results')
+            ->with('results' , $response)
+            ->with('message' , $message)
+            ;
     }
 }

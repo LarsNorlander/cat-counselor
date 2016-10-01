@@ -14,8 +14,7 @@
         <img src="/img/cat.svg">
     </div>
     <div class="col-md-6" style="border-left: 3px solid #ffa200; text-align: justify">
-        <p>Huzza! I'm IntelliCat! But not so <i>"Intelli"</i> just yet. See, my creator is yet to give me my reactions.
-        It's a few conditions away but he's gonna make sure I say something useful!... Hopefully.</p>
+        <p>{{ $message }}</p>
     </div>
     <div class="col-md-2"></div>
 </div>
