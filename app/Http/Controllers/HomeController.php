@@ -146,9 +146,9 @@ class HomeController extends Controller {
                 ] ,
         ];
         $context = stream_context_create($options);
-        $response = json_decode(file_get_contents('https://catranker.herokuapp.com/' , false , $context) , true);
+        $response = json_decode(file_get_contents('http://localhost:8080/' , false , $context) , true);
 
-        if ($response[ 'preference' ][0] == current(array_keys($response[ 'ranking' ]))) {
+        if ($response[ 'preference' ][ 0 ] == current(array_keys($response[ 'ranking' ]))) {
             $message = "Huzzah! Your first choice is the best track for you! You could go check the Individual Strand Statistics section
         below to see what you might be able to improve. Remember, there's always room for improvement!";
         } else {
